@@ -38,7 +38,7 @@ export const Reviews = () => {
     return (
         <div className={style.reviewContainer}>
             <div className={style["reviews-section"]}>
-                <h1 style = {{display: "flex", alignItems: "center"}}>{restaurantsData.find((_, idx) => idx === selectedRestaurant).name} <button className={style.openReviewBox} onClick = {() => setToggle(true)}>Add Review</button></h1>
+                <h1 style = {{display: "flex", alignItems: "center"}}>{restaurantsData.find(({id}) => id === selectedRestaurant)?.name} <button className={style.openReviewBox} onClick = {() => setToggle(true)}>Add Review</button></h1>
                 {selectedRestaurant ? (
                     <div className={style["review-section"]}>
                         <div style={{ width: "100%" }}>
