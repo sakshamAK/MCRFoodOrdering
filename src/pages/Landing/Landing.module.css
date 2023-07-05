@@ -1,0 +1,19 @@
+.foodmenu {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cuisine-list {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.cuisine {
+    background: rgb(239, 79, 95);
+    color: rgb(255, 245, 245);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
