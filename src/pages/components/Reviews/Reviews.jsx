@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useMyContext } from '../../../context/myContext';
 import { cuisinesData, restaurantsData } from '../../../data';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import style from "./Reviews.module.css"
 
 export const Reviews = () => {
 
     const [toggle, setToggle] = useState(false);
+    const [avgRating, setAvgRating] = useState("no reviews yet");
     const { selectedRestaurant, comment, setComment, rating, setRating } = useMyContext();
 
     const handleRatingChange = (e) => {
@@ -20,6 +21,8 @@ export const Reviews = () => {
     const handleAddReview = () => {
         if (comment.trim() !== "" && rating !== 0) {
             const newReview = {
+                revName: "John Doe",
+                pp: "https://picsum.photos/30/30",
                 comment,
                 rating
             };
@@ -37,8 +40,22 @@ export const Reviews = () => {
     };
     return (
         <div className={style.reviewContainer}>
+            <Link to="/" className={`${style.back} material-symbols-outlined`}>
+                arrow_back
+            </Link>
             <div className={style["reviews-section"]}>
-                <h1 style = {{display: "flex", alignItems: "center"}}>{restaurantsData.find(({id}) => id === selectedRestaurant)?.name} <button className={style.openReviewBox} onClick = {() => setToggle(true)}>Add Review</button></h1>
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                    <div className={style["restaurant-details"]}>
+                        <h1>{restaurantsData.find(({ id }) => id === selectedRestaurant)?.name}</h1>
+                        <span>{restaurantsData.find(({ id }) => id === selectedRestaurant)?.menu.map(item => item.name).join(",  ")}</span>
+                        <span>{restaurantsData.find(({ id }) => id === selectedRestaurant)?.address}</span>
+                        {/* <span>({restaurantsData.find(({ id }) => id === selectedRestaurant)?.phone})</span> */}
+                        <span>Average Rating: {restaurantsData.find((restaurant) => restaurant.id === selectedRestaurant).averageRating.toFixed(1)}</span>
+                    </div>
+
+                    <button className={style.openReviewBox} onClick={() => setToggle(true)}>Add Review</button>
+                </div>
+                <hr />
                 {selectedRestaurant ? (
                     <div className={style["review-section"]}>
                         <div style={{ width: "100%" }}>
@@ -50,14 +67,14 @@ export const Reviews = () => {
                                         .map((restaurant) =>
                                             restaurant.ratings.length > 0 ? (
                                                 <div key={restaurant.id}>
-                                                    {restaurant.ratings.map(({ rating, comment }, index) => (
+                                                    {restaurant.ratings.map(({ rating, comment, pp, revName }, index) => (
                                                         <>
                                                             <p key={index} style={{ display: "flex", gap: "1rem", flexDirection: "column", alignItems: "flex-start" }}>
                                                                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", width: "100%" }}>
                                                                     <img
-                                                                        src="https://picsum.photos/30/30"
-                                                                        style={{ borderRadius: "99px" }}
-                                                                    /> <b>John Doe</b>
+                                                                        src={pp}
+                                                                        style={{ borderRadius: "99px", height: "30px" }}
+                                                                    /> <b>{revName}</b>
                                                                     <b className={style.rating}>
                                                                         <h3 style={{ margin: "0" }}>{rating}</h3>
                                                                         <span class="material-symbols-outlined" style={{ fontSize: "14px" }} >
@@ -70,7 +87,6 @@ export const Reviews = () => {
                                                             <hr />
                                                         </>
                                                     ))}
-                                                    {/* <h3>Average Rating: {restaurant.averageRating.toFixed(1)}</h3> */}
                                                 </div>
                                             ) : (
                                                 <p>No reviews yet.</p>
@@ -78,8 +94,8 @@ export const Reviews = () => {
                                         )}
                             </div>
                         </div>
-                        <div className={style["add-review"]} style = {{display: toggle ? "flex" : "none"}}>
-                            <span className={`${style.close} material-symbols-outlined`} onClick = {() => setToggle(false)}>
+                        <div className={style["add-review"]} style={{ display: toggle ? "flex" : "none" }}>
+                            <span className={`${style.close} material-symbols-outlined`} onClick={() => setToggle(false)}>
                                 cancel
                             </span>
                             <h2>Add Your Review</h2>
@@ -98,7 +114,7 @@ export const Reviews = () => {
                                 <label htmlFor="comment">Comment:</label>
                                 <textarea id="comment" value={comment} onChange={handleCommentChange}></textarea>
                             </div>
-                            <button onClick={() => {handleAddReview(); setToggle(false)}}>Submit</button>
+                            <button onClick={() => { handleAddReview(); setToggle(false); setAvgRating(); }}>Submit</button>
                         </div>
                     </div>
                 ) : (

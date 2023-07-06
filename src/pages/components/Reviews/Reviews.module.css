@@ -8,10 +8,12 @@
 }
 
 .reviewContainer h1 {
-    font-size: 2.5rem;
-    border-bottom: 1px solid black;
-    padding-block-end: 2rem;
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 300;
+    color: black;
 }
+
 
 .reviewContainer h2 {
     font-size: 1.8rem;
@@ -106,4 +108,24 @@
     background: rgb(239, 79, 95);
     color: rgb(255, 245, 245);
     cursor: pointer;
+}
+
+.back {
+    position: absolute;
+    top: 2rem;
+    left: 4rem;
+    padding: 2rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.restaurant-details {
+    display: flex;
+    flex-direction: column;
+    color: gray;
+    gap: 0.2rem;
+}
+
+.restaurant-details hr {
+    width: 100%;
 }

@@ -15,34 +15,35 @@ export const Restaurant = () => {
     return (
         <div>
             <div className={style["restaurant-list"]}>
-                <h2>Restaurants</h2>
-                {selectedCuisine ? (
-                    restaurantsData
-                        .filter((restaurant) => restaurant.cuisine_id === selectedCuisine)
-                        .map((restaurant, idx) => (
-                            <div
-                                key={restaurant.id}
-                                className={`${style["restaurant"]}`}
-                                onClick={() => handleRestaurantSelect(restaurant.id)}
-                            >
-                                <Link to = {`/restaurant/${idx}`} className={style["restaurant-menu"]}>
-                                    {restaurant.menu.map((menuItem, index) => (
-                                        <div key={index} className={style["menu-item"]}>
-                                            <img src={`https://picsum.photos/20${index}/20${index}`} />
-                                            <div className={style["menu-content"]}>
-                                                <div className={style["menu-details"]}>
-                                                    <b>{menuItem}</b>
-                                                    <span>{restaurant.name}</span>
+                {selectedCuisine && (
+                    <>
+                        {restaurantsData
+                            .filter((restaurant) => restaurant.cuisine_id === selectedCuisine)
+                            .map((restaurant, idx) => (
+                                <div
+                                    key={restaurant.id}
+                                    className={`${style["restaurant"]}`}
+                                    onClick={() => handleRestaurantSelect(restaurant.id)}
+                                >
+                                    <h2>Dishes by {restaurant.name}</h2>
+
+                                    <Link to={`/restaurant/${idx}`} className={style["restaurant-menu"]}>
+                                        {restaurant.menu.map((menuItem, index) => (
+                                            <div key={index} className={style["menu-item"]}>
+                                                <div className={style["menu-image"]}><img src={menuItem.imgSrc} /></div>
+                                                <div className={style["menu-content"]}>
+                                                    <div className={style["menu-details"]}>
+                                                        <b>{menuItem.name}</b>
+                                                        <div className={style.price}>Rs. {menuItem.price} for {menuItem.qty}</div>
+                                                        <span className={style.price}>{restaurant.name}</span>
+                                                    </div>
                                                 </div>
-                                                <div className={style.price}>Rs. 500</div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </Link>
-                            </div>
-                        ))
-                ) : (
-                    <p>Please select a cuisine</p>
+                                        ))}
+                                    </Link>
+                                </div>
+                            ))}
+                    </>
                 )}
             </div>
         </div>

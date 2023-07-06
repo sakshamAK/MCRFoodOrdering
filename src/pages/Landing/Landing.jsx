@@ -16,7 +16,7 @@ export const Landing = () => {
   return (
     <div className={style.foodmenu}>
       <h1>Food Ordering App</h1>
-      <h2>Select Your Cuisine Category:</h2>
+      <h2>Select Your Cuisine:</h2>
       <div className={style["cuisine-list"]}>
         {cuisinesData.map((cuisine) => (
           <div
