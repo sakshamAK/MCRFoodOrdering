@@ -59,7 +59,7 @@ export const restaurantsData = [
         revName: "Kripla"
       },
     ],
-    averageRating: 2.5,
+    averageRating: 4.3,
     description: "Delicious pizzas and pasta."
   },
   {
@@ -113,7 +113,7 @@ export const restaurantsData = [
         revName: "Kripla"
       },
     ],
-    averageRating: 5,
+    averageRating: 3.3,
     description: "Authentic Italian food"
   },
   {
@@ -168,7 +168,7 @@ export const restaurantsData = [
         revName: "Kripla"
       },
     ],
-    averageRating: 4.5,
+    averageRating: 3,
     description: "Authentic Mexican street food."
   },
   {
@@ -333,7 +333,7 @@ export const restaurantsData = [
         revName: "Kripla"
       },
     ],
-    averageRating: 6,
+    averageRating: 4,
     description: "Flavorsome Indian dishes."
   }
 ];
